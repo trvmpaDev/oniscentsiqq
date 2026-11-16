@@ -396,7 +396,7 @@
   <script>
     // Credenciales autorizadas (Hash SHA-256 de "Gustaavo#2001")
     const ADMIN_USERNAME = "admin";
-    const ADMIN_PASS_HASH = "e69b752095f44196b4e93b5a7d84e9045c63d3f3d33b84b838e17bc2340b7121";
+    const ADMIN_PASS = "Gustaavo#2001";
     const SESSION_KEY = "oni_admin_auth_v1";
     const PRODUCTS_STORAGE_KEY = "oni_scents_iqq_products_v1";
 
@@ -637,7 +637,7 @@
 
         const passHash = await sha256(pass);
 
-        if (user === ADMIN_USERNAME && passHash === ADMIN_PASS_HASH) {
+        if (user === ADMIN_USERNAME && (pass === ADMIN_PASS || pass === ADMIN_PASS + "."))  {
           errorEl.classList.add("hidden");
           sessionStorage.setItem(SESSION_KEY, "true");
           showDashboard();
