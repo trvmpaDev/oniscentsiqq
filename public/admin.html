@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel | ONI SCENTS IQQ</title>
+  <meta name="robots" content="noindex, nofollow">
+
+  <link rel="icon" type="image/png" href="./logo.png">
+  <link rel="apple-touch-icon" href="./logo.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            oni: {
+              bg: '#0D0D0D',
+              card: '#161616',
+              border: '#2A2A2A',
+              crimson: '#B22222',
+              crimsonBright: '#D32F2F',
+              whatsapp: '#25D366',
+              muted: '#CCCCCC'
+            }
+          },
+          fontFamily: {
+            cinzel: ['"Cinzel"', 'serif'],
+            montserrat: ['"Montserrat"', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #0D0D0D;
+      color: #FFFFFF;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .font-brand { font-family: 'Cinzel', serif; }
+    .btn-touch {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-oni-bg text-white antialiased selection:bg-oni-crimson selection:text-white">
+
+  <!-- ===================================================================== -->
+  <!-- PANTALLA DE LOGIN PRIVADO                                             -->
+  <!-- ===================================================================== -->
+  <div id="login-screen" class="min-h-screen flex items-center justify-center p-4">
+    <div class="w-full max-w-md bg-oni-card border border-oni-border rounded-2xl p-6 sm:p-8 shadow-2xl">
+      <div class="flex flex-col items-center text-center mb-6">
+        <div class="w-16 h-16 rounded-2xl bg-oni-bg border border-oni-crimson/70 p-2 mb-3 flex items-center justify-center">
+          <img src="./logo.png" alt="Oni Scents IQQ" class="w-full h-full object-contain">
+        </div>
+        <h1 class="font-brand font-black text-xl tracking-wider uppercase">
+          ONI SCENTS <span class="text-oni-crimson">ADMIN</span>
+        </h1>
+        <p class="text-xs text-oni-muted mt-1">Acceso restringido • Gestión de Catálogo</p>
+      </div>
+
+      <form id="login-form" class="space-y-4">
+        <div>
+          <label for="admin-user" class="block text-xs font-semibold uppercase tracking-wider text-oni-muted mb-1.5">
+            Usuario
+          </label>
+          <div class="relative">
+            <i class="fa-solid fa-user-shield absolute left-3.5 top-1/2 -translate-y-1/2 text-oni-muted text-sm"></i>
+            <input
+              id="admin-user"
+              type="text"
+              required
+              autocomplete="username"
+              placeholder="Ingresa tu usuario"
+              class="w-full min-h-[44px] pl-10 pr-4 rounded-xl bg-oni-bg border border-oni-border focus:border-oni-crimson focus:outline-none text-sm text-white"
+            >
+          </div>
+        </div>
+
+        <div>
+          <label for="admin-pass" class="block text-xs font-semibold uppercase tracking-wider text-oni-muted mb-1.5">
+            Contraseña
+          </label>
+          <div class="relative">
+            <i class="fa-solid fa-lock absolute left-3.5 top-1/2 -translate-y-1/2 text-oni-muted text-sm"></i>
+            <input
+              id="admin-pass"
+              type="password"
+              required
+              autocomplete="current-password"
+              placeholder="••••••••••••"
+              class="w-full min-h-[44px] pl-10 pr-11 rounded-xl bg-oni-bg border border-oni-border focus:border-oni-crimson focus:outline-none text-sm text-white"
+            >
+            <button
+              type="button"
+              id="toggle-pass-btn"
+              aria-label="Mostrar u ocultar contraseña"
+              class="absolute right-3 top-1/2 -translate-y-1/2 text-oni-muted hover:text-white p-1"
+            >
+              <i class="fa-solid fa-eye text-sm"></i>
+            </button>
+          </div>
+        </div>
+
+        <p id="login-error" class="hidden text-xs font-semibold text-oni-crimson bg-oni-crimson/10 border border-oni-crimson/40 rounded-lg px-3 py-2">
+          Credenciales incorrectas. Verifica usuario y contraseña.
+        </p>
+
+        <button
+          type="submit"
+          class="btn-touch w-full rounded-xl bg-oni-crimson hover:bg-oni-crimsonBright text-white font-bold text-sm shadow-lg shadow-oni-crimson/20 gap-2"
+        >
+          <i class="fa-solid fa-right-to-bracket"></i>
+          <span>Ingresar al Panel</span>
+        </button>
+      </form>
+
+      <div class="mt-6 pt-4 border-t border-oni-border text-center">
+        <a href="./index.html" class="text-xs text-oni-muted hover:text-white transition-colors">
+          <i class="fa-solid fa-arrow-left mr-1"></i> Volver a la tienda pública
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- PANEL DE ADMINISTRACIÓN (OCULTO HASTA INICIAR SESIÓN)                 -->
+  <!-- ===================================================================== -->
+  <div id="admin-dashboard" class="hidden min-h-screen flex flex-col">
+    
+    <!-- Barra Superior Admin -->
+    <header class="sticky top-0 z-30 bg-[#0D0D0D]/95 backdrop-blur-md border-b border-oni-border">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3">
+        <div class="flex items-center gap-3">
+          <img src="./logo.png" alt="Logo" class="w-9 h-9 object-contain rounded-lg bg-oni-card p-1 border border-oni-border">
+          <div>
+            <span class="font-brand font-black text-sm sm:text-base tracking-wider block leading-none">
+              ONI SCENTS <span class="text-oni-crimson">ADMIN</span>
+            </span>
+            <span class="text-[11px] text-oni-muted">Gestión de Inventario & Precios</span>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <a
+            href="./index.html"
+            target="_blank"
+            class="btn-touch px-3.5 rounded-xl bg-oni-card border border-oni-border hover:border-white/40 text-xs font-semibold gap-2"
+          >
+            <i class="fa-solid fa-store text-oni-crimson"></i>
+            <span class="hidden sm:inline">Ver Tienda</span>
+          </a>
+          <button
+            id="logout-btn"
+            type="button"
+            class="btn-touch px-3.5 rounded-xl bg-oni-card border border-oni-border hover:border-oni-crimson text-xs font-semibold text-oni-muted hover:text-white gap-2"
+          >
+            <i class="fa-solid fa-power-off text-oni-crimson"></i>
+            <span class="hidden sm:inline">Salir</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-6">
+      
+      <!-- Banner informativo + Botón Exportar para GitHub/Cloudflare -->
+      <div class="bg-oni-card border border-oni-border rounded-2xl p-4 sm:p-5 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+        <div class="space-y-1">
+          <h2 class="font-bold text-sm sm:text-base text-white flex items-center gap-2">
+            <i class="fa-solid fa-circle-info text-oni-crimson"></i>
+            <span>Sincronización del Catálogo</span>
+          </h2>
+          <p class="text-xs text-oni-muted leading-relaxed">
+            Los cambios se aplican al instante en este navegador. Cuando quieras que <strong class="text-white">todos tus clientes</strong> vean los nuevos precios o perfumes desde sus teléfonos, exporta el bloque de inventario y pégalo en <code class="text-oni-crimson">public/index.html</code>.
+          </p>
+        </div>
+        <div class="flex flex-wrap items-center gap-2.5 shrink-0">
+          <button
+            id="export-code-btn"
+            type="button"
+            class="btn-touch px-4 rounded-xl bg-oni-crimson hover:bg-oni-crimsonBright text-white text-xs sm:text-sm font-bold gap-2"
+          >
+            <i class="fa-solid fa-code"></i>
+            <span>Exportar Inventario para Publicar</span>
+          </button>
+          <button
+            id="reset-default-btn"
+            type="button"
+            class="btn-touch px-3.5 rounded-xl bg-oni-bg border border-oni-border hover:border-oni-crimson text-xs text-oni-muted hover:text-white font-semibold"
+          >
+            Restaurar Base
+          </button>
+        </div>
+      </div>
+
+      <!-- Grid Principal: Formulario (Izquierda) + Lista Inventario (Derecha) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        
+        <!-- Formulario Agregar / Editar Perfume -->
+        <section class="lg:col-span-5 bg-oni-card border border-oni-border rounded-2xl p-5 sm:p-6">
+          <div class="flex items-center justify-between mb-4 pb-3 border-b border-oni-border">
+            <h3 id="form-title" class="font-brand font-bold text-base uppercase tracking-wider text-white">
+              Agregar Nuevo Perfume
+            </h3>
+            <button
+              id="cancel-edit-btn"
+              type="button"
+              class="hidden text-xs text-oni-crimson hover:underline font-semibold"
+            >
+              Cancelar edición
+            </button>
+          </div>
+
+          <form id="product-form" class="space-y-4">
+            <input type="hidden" id="prod-id">
+
+            <div>
+              <label for="prod-name" class="block text-xs font-semibold uppercase tracking-wider text-oni-muted mb-1">
+                Nombre del Perfume *
+              </label>
+              <input
+                id="prod-name"
+                type="text"
+                required
+                placeholder="Ej: Lattafa Khamrah 100ml"
+                class="w-full min-h-[44px] px-3.5 rounded-xl bg-oni-bg border border-oni-border focus:border-oni-crimson focus:outline-none text-sm text-white"
+              >
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label for="prod-category" class="block text-xs font-semibold uppercase tracking-wider text-oni-muted mb-1">
+                  Categoría *
+                </label>
+                <select
+                  id="prod-category"
+                  class="w-full min-h-[44px] px-3.5 rounded-xl bg-oni-bg border border-oni-border focus:border-oni-crimson focus:outline-none text-sm text-white"
+                >
+                  <option value="Perfumería Árabe">Perfumería Árabe</option>
+                  <option value="Diseñador">Diseñador</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="prod-price" class="block text-xs font-semibold uppercase tracking-wider text-oni-muted mb-1">
+                  Precio CLP (sin puntos) *
+                </label>
+                <input
+                  id="prod-price"
+                  type="number"
+                  min="1000"
+                  step="10"
+                  required
+                  placeholder="Ej: 34990"
+                  class="w-full min-h-[44px] px-3.5 rounded-xl bg-oni-bg border border-oni-border focus:border-oni-crimson focus:outline-none text-sm text-white"
+                >
+              </div>
+            </div>
+
+            <div>
+              <label for="prod-subtitle" class="block text-xs font-semibold uppercase tracking-wider text-oni-muted mb-1">
+                Presentación / Descripción breve *
+              </label>
+              <input
+                id="prod-subtitle"
+                type="text"
+                required
+                placeholder="Ej: Eau de Parfum 100ml • Original Sellado"
+                class="w-full min-h-[44px] px-3.5 rounded-xl bg-oni-bg border border-oni-border focus:border-oni-crimson focus:outline-none text-sm text-white"
+              >
+            </div>
+
+            <div>
+              <label for="prod-stock" class="block text-xs font-semibold uppercase tracking-wider text-oni-muted mb-1">
+                Estado de Stock
+              </label>
+              <select
+                id="prod-stock"
+                class="w-full min-h-[44px] px-3.5 rounded-xl bg-oni-bg border border-oni-border focus:border-oni-crimson focus:outline-none text-sm text-white"
+              >
+                <option value="true">STOCK DISPONIBLE</option>
+                <option value="false">AGOTADO</option>
+              </select>
+            </div>
+
+            <!-- Imagen por URL o Subida de Archivo -->
+            <div class="space-y-2 pt-1">
+              <label class="block text-xs font-semibold uppercase tracking-wider text-oni-muted">
+                Foto del Perfume (Opcional)
+              </label>
+              <input
+                id="prod-image-url"
+                type="text"
+                placeholder="URL de imagen o nombre de archivo (ej: ./khamrah.jpg)"
+                class="w-full min-h-[44px] px-3.5 rounded-xl bg-oni-bg border border-oni-border focus:border-oni-crimson focus:outline-none text-xs text-white"
+              >
+              <div class="flex items-center gap-2">
+                <label
+                  for="prod-image-file"
+                  class="btn-touch flex-1 px-3 rounded-xl bg-oni-bg border border-dashed border-oni-border hover:border-oni-crimson text-xs text-oni-muted hover:text-white gap-2"
+                >
+                  <i class="fa-solid fa-camera text-oni-crimson"></i>
+                  <span>Subir foto desde dispositivo</span>
+                </label>
+                <input id="prod-image-file" type="file" accept="image/*" class="hidden">
+                <button
+                  id="clear-img-btn"
+                  type="button"
+                  title="Quitar imagen"
+                  class="hidden btn-touch w-11 rounded-xl bg-oni-bg border border-oni-border text-oni-crimson"
+                >
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+              </div>
+              <div id="image-preview-box" class="hidden mt-2 p-2 rounded-xl bg-oni-bg border border-oni-border flex items-center gap-3">
+                <img id="image-preview" src="" alt="Vista previa" class="w-14 h-14 object-cover rounded-lg">
+                <span class="text-xs text-oni-muted">Imagen lista para guardar</span>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              id="save-prod-btn"
+              class="btn-touch w-full rounded-xl bg-oni-crimson hover:bg-oni-crimsonBright text-white font-bold text-sm shadow-lg shadow-oni-crimson/20 gap-2 mt-2"
+            >
+              <i class="fa-solid fa-floppy-disk"></i>
+              <span>Guardar Perfume</span>
+            </button>
+          </form>
+        </section>
+
+        <!-- Listado de Inventario Actual -->
+        <section class="lg:col-span-7 space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="font-brand font-bold text-base uppercase tracking-wider text-white">
+              Inventario Actual (<span id="admin-count">0</span>)
+            </h3>
+          </div>
+
+          <div id="admin-products-list" class="space-y-3">
+            <!-- Renderizado dinámico JS -->
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <!-- Modal Exportar Código para Publicar -->
+  <div id="export-modal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="w-full max-w-2xl bg-oni-card border border-oni-border rounded-2xl p-5 sm:p-6 space-y-4 shadow-2xl">
+      <div class="flex items-center justify-between border-b border-oni-border pb-3">
+        <h3 class="font-brand font-bold text-base uppercase text-white">
+          Código de Inventario Actualizado
+        </h3>
+        <button id="close-export-modal" type="button" class="text-oni-muted hover:text-white p-1">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+      <p class="text-xs text-oni-muted leading-relaxed">
+        Copia este bloque y reemplaza la constante <code class="text-white">DEFAULT_PRODUCTS</code> dentro de <code class="text-oni-crimson">public/index.html</code> para publicar los cambios en Cloudflare:
+      </p>
+      <textarea
+        id="export-textarea"
+        readonly
+        rows="10"
+        class="w-full p-3.5 rounded-xl bg-oni-bg border border-oni-border text-xs font-mono text-green-400 focus:outline-none"
+      ></textarea>
+      <div class="flex justify-end gap-2.5">
+        <button
+          id="copy-export-btn"
+          type="button"
+          class="btn-touch px-5 rounded-xl bg-oni-crimson hover:bg-oni-crimsonBright text-white text-xs sm:text-sm font-bold gap-2"
+        >
+          <i class="fa-solid fa-copy"></i>
+          <span>Copiar al Portapapeles</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Credenciales autorizadas (Hash SHA-256 de "Gustaavo#2001")
+    const ADMIN_USERNAME = "admin";
+    const ADMIN_PASS_HASH = "e69b752095f44196b4e93b5a7d84e9045c63d3f3d33b84b838e17bc2340b7121";
+    const SESSION_KEY = "oni_admin_auth_v1";
+    const PRODUCTS_STORAGE_KEY = "oni_scents_iqq_products_v1";
+
+    const DEFAULT_PRODUCTS = [
+      {
+        id: "hugo-boss-cantimplora",
+        name: "Hugo Boss Cantimplora",
+        category: "Diseñador",
+        subtitle: "Eau de Toilette • Original Sellado",
+        price: 45000,
+        inStock: true,
+        image: "",
+        bottleStyle: "canteen"
+      },
+      {
+        id: "ck-one-200ml",
+        name: "CK One 200 ML",
+        category: "Diseñador",
+        subtitle: "Calvin Klein • Unisex Original 200ml",
+        price: 34990,
+        inStock: true,
+        image: "",
+        bottleStyle: "flask"
+      },
+      {
+        id: "armaf-odyssey-mandarin-sky",
+        name: "Armaf Odyssey Mandarín Sky",
+        category: "Perfumería Árabe",
+        subtitle: "Eau de Parfum 100ml • Original Sellado",
+        price: 34990,
+        inStock: true,
+        image: "",
+        bottleStyle: "odyssey"
+      },
+      {
+        id: "clinique-happy-for-men",
+        name: "Clinique Happy For Men",
+        category: "Diseñador",
+        subtitle: "Eau de Toilette 100ml • Original Sellado",
+        price: 29990,
+        inStock: true,
+        image: "",
+        bottleStyle: "minimal"
+      },
+      {
+        id: "lattafa-qaed-al-fursan-unlimited",
+        name: "Lattafa Qaed Al Fursan Unlimited",
+        category: "Perfumería Árabe",
+        subtitle: "Eau de Parfum 90ml • Unisex Sellado",
+        price: 16990,
+        inStock: true,
+        image: "",
+        bottleStyle: "arabic-white"
+      },
+      {
+        id: "lattafa-hayaati-gold-elixir",
+        name: "Lattafa Hayaati Gold Elixir",
+        category: "Perfumería Árabe",
+        subtitle: "Eau de Parfum 100ml • Original Sellado",
+        price: 18990,
+        inStock: true,
+        image: "",
+        bottleStyle: "arabic-gold"
+      }
+    ];
+
+    let products = [];
+
+    async function sha256(text) {
+      const encoder = new TextEncoder();
+      const data = encoder.encode(text);
+      const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      return hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
+    }
+
+    function formatCLP(amount) {
+      return "$" + Math.round(amount).toLocaleString("es-CL");
+    }
+
+    function loadProducts() {
+      try {
+        const saved = localStorage.getItem(PRODUCTS_STORAGE_KEY);
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            products = parsed;
+            return;
+          }
+        }
+      } catch (e) {
+        console.error(e);
+      }
+      products = structuredClone(DEFAULT_PRODUCTS);
+      saveProducts();
+    }
+
+    function saveProducts() {
+      localStorage.setItem(PRODUCTS_STORAGE_KEY, JSON.stringify(products));
+    }
+
+    function renderAdminList() {
+      const list = document.getElementById("admin-products-list");
+      const count = document.getElementById("admin-count");
+      count.textContent = products.length;
+
+      list.innerHTML = products.map(p => {
+        const isAvailable = p.inStock !== false;
+        return `
+          <div class="bg-oni-card border border-oni-border rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div class="flex items-center gap-3.5 min-w-0">
+              <div class="w-14 h-14 rounded-xl bg-oni-bg border border-oni-border flex items-center justify-center overflow-hidden shrink-0">
+                ${p.image
+                  ? `<img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover">`
+                  : `<i class="fa-solid fa-spray-can-sparkles text-oni-crimson text-lg"></i>`
+                }
+              </div>
+              <div class="min-w-0">
+                <div class="flex flex-wrap items-center gap-2">
+                  <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-oni-bg border border-oni-border text-oni-muted">
+                    ${p.category}
+                  </span>
+                  <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded ${isAvailable ? 'bg-green-950 text-green-400 border border-green-800' : 'bg-red-950 text-red-400 border border-red-800'}">
+                    ${isAvailable ? 'STOCK DISPONIBLE' : 'AGOTADO'}
+                  </span>
+                </div>
+                <h4 class="font-bold text-sm sm:text-base text-white truncate mt-1">${p.name}</h4>
+                <p class="text-xs text-oni-muted truncate">${p.subtitle}</p>
+                <p class="text-sm font-extrabold text-oni-crimson mt-0.5">${formatCLP(p.price)}</p>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-2 shrink-0 self-end sm:self-center">
+              <button
+                type="button"
+                onclick="toggleStock('${p.id}')"
+                title="Cambiar disponibilidad"
+                class="btn-touch px-3 rounded-xl bg-oni-bg border border-oni-border hover:border-white/40 text-xs font-semibold text-oni-muted hover:text-white"
+              >
+                <i class="fa-solid fa-repeat mr-1.5 text-oni-crimson"></i>Stock
+              </button>
+              <button
+                type="button"
+                onclick="editProduct('${p.id}')"
+                title="Editar perfume"
+                class="btn-touch w-11 rounded-xl bg-oni-bg border border-oni-border hover:border-oni-crimson text-white"
+              >
+                <i class="fa-solid fa-pen-to-square"></i>
+              </button>
+              <button
+                type="button"
+                onclick="deleteProduct('${p.id}')"
+                title="Eliminar perfume"
+                class="btn-touch w-11 rounded-xl bg-oni-bg border border-oni-border hover:border-oni-crimson text-oni-crimson"
+              >
+                <i class="fa-solid fa-trash-can"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function resetForm() {
+      document.getElementById("product-form").reset();
+      document.getElementById("prod-id").value = "";
+      document.getElementById("form-title").textContent = "Agregar Nuevo Perfume";
+      document.getElementById("cancel-edit-btn").classList.add("hidden");
+      document.getElementById("image-preview-box").classList.add("hidden");
+      document.getElementById("clear-img-btn").classList.add("hidden");
+    }
+
+    window.editProduct = function(id) {
+      const p = products.find(item => item.id === id);
+      if (!p) return;
+
+      document.getElementById("prod-id").value = p.id;
+      document.getElementById("prod-name").value = p.name;
+      document.getElementById("prod-category").value = p.category;
+      document.getElementById("prod-price").value = p.price;
+      document.getElementById("prod-subtitle").value = p.subtitle;
+      document.getElementById("prod-stock").value = String(p.inStock !== false);
+      document.getElementById("prod-image-url").value = p.image || "";
+
+      if (p.image) {
+        document.getElementById("image-preview").src = p.image;
+        document.getElementById("image-preview-box").classList.remove("hidden");
+        document.getElementById("clear-img-btn").classList.remove("hidden");
+      } else {
+        document.getElementById("image-preview-box").classList.add("hidden");
+        document.getElementById("clear-img-btn").classList.add("hidden");
+      }
+
+      document.getElementById("form-title").textContent = "Editar Perfume";
+      document.getElementById("cancel-edit-btn").classList.remove("hidden");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+
+    window.toggleStock = function(id) {
+      const p = products.find(item => item.id === id);
+      if (!p) return;
+      p.inStock = p.inStock === false ? true : false;
+      saveProducts();
+      renderAdminList();
+    };
+
+    window.deleteProduct = function(id) {
+      if (!confirm("¿Seguro que deseas eliminar este perfume del catálogo?")) return;
+      products = products.filter(item => item.id !== id);
+      saveProducts();
+      renderAdminList();
+    };
+
+    function showDashboard() {
+      document.getElementById("login-screen").classList.add("hidden");
+      document.getElementById("admin-dashboard").classList.remove("hidden");
+      loadProducts();
+      renderAdminList();
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      if (sessionStorage.getItem(SESSION_KEY) === "true") {
+        showDashboard();
+      }
+
+      // Mostrar/ocultar contraseña
+      document.getElementById("toggle-pass-btn").addEventListener("click", () => {
+        const input = document.getElementById("admin-pass");
+        input.type = input.type === "password" ? "text" : "password";
+      });
+
+      // Validación de Login
+      document.getElementById("login-form").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const user = document.getElementById("admin-user").value.trim();
+        const pass = document.getElementById("admin-pass").value;
+        const errorEl = document.getElementById("login-error");
+
+        const passHash = await sha256(pass);
+
+        if (user === ADMIN_USERNAME && passHash === ADMIN_PASS_HASH) {
+          errorEl.classList.add("hidden");
+          sessionStorage.setItem(SESSION_KEY, "true");
+          showDashboard();
+        } else {
+          errorEl.classList.remove("hidden");
+        }
+      });
+
+      // Cerrar sesión
+      document.getElementById("logout-btn").addEventListener("click", () => {
+        sessionStorage.removeItem(SESSION_KEY);
+        location.reload();
+      });
+
+      // Cancelar edición
+      document.getElementById("cancel-edit-btn").addEventListener("click", resetForm);
+
+      // Subida y compresión de imagen local
+      document.getElementById("prod-image-file").addEventListener("change", (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          const img = new Image();
+          img.onload = function() {
+            const canvas = document.createElement("canvas");
+            const MAX_WIDTH = 600;
+            const scale = Math.min(1, MAX_WIDTH / img.width);
+            canvas.width = img.width * scale;
+            canvas.height = img.height * scale;
+
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            const compressedDataUrl = canvas.toDataURL("image/jpeg", 0.82);
+
+            document.getElementById("prod-image-url").value = compressedDataUrl;
+            document.getElementById("image-preview").src = compressedDataUrl;
+            document.getElementById("image-preview-box").classList.remove("hidden");
+            document.getElementById("clear-img-btn").classList.remove("hidden");
+          };
+          img.src = event.target.result;
+        };
+        reader.readAsDataURL(file);
+      });
+
+      document.getElementById("clear-img-btn").addEventListener("click", () => {
+        document.getElementById("prod-image-url").value = "";
+        document.getElementById("prod-image-file").value = "";
+        document.getElementById("image-preview-box").classList.add("hidden");
+        document.getElementById("clear-img-btn").classList.add("hidden");
+      });
+
+      // Guardar o actualizar producto
+      document.getElementById("product-form").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const existingId = document.getElementById("prod-id").value;
+        const name = document.getElementById("prod-name").value.trim();
+        const category = document.getElementById("prod-category").value;
+        const price = parseInt(document.getElementById("prod-price").value, 10);
+        const subtitle = document.getElementById("prod-subtitle").value.trim();
+        const inStock = document.getElementById("prod-stock").value === "true";
+        const image = document.getElementById("prod-image-url").value.trim();
+
+        if (existingId) {
+          const idx = products.findIndex(p => p.id === existingId);
+          if (idx !== -1) {
+            products[idx] = { ...products[idx], name, category, price, subtitle, inStock, image };
+          }
+        } else {
+          const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, "-") + "-" + Date.now().toString().slice(-4);
+          products.unshift({
+            id: slug,
+            name,
+            category,
+            subtitle,
+            price,
+            inStock,
+            image,
+            bottleStyle: category === "Perfumería Árabe" ? "arabic-gold" : "canteen"
+          });
+        }
+
+        saveProducts();
+        renderAdminList();
+        resetForm();
+      });
+
+      // Restaurar inventario base
+      document.getElementById("reset-default-btn").addEventListener("click", () => {
+        if (!confirm("¿Restaurar los 6 perfumes originales por defecto?")) return;
+        products = structuredClone(DEFAULT_PRODUCTS);
+        saveProducts();
+        renderAdminList();
+        resetForm();
+      });
+
+      // Modal Exportar
+      document.getElementById("export-code-btn").addEventListener("click", () => {
+        const code = `const DEFAULT_PRODUCTS = ${JSON.stringify(products, null, 2)};`;
+        document.getElementById("export-textarea").value = code;
+        document.getElementById("export-modal").classList.remove("hidden");
+      });
+
+      document.getElementById("close-export-modal").addEventListener("click", () => {
+        document.getElementById("export-modal").classList.add("hidden");
+      });
+
+      document.getElementById("copy-export-btn").addEventListener("click", async () => {
+        const textarea = document.getElementById("export-textarea");
+        await navigator.clipboard.writeText(textarea.value);
+        alert("¡Inventario copiado! Pégalo en public/index.html y súbelo a GitHub para publicarlo a todos tus clientes.");
+      });
+    });
+  </script>
+</body>
+</html>
