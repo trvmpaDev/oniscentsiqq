@@ -647,20 +647,21 @@
     const WHATSAPP_NUMBER = "56944306373";
     const STORAGE_KEY_CART = "oni_scents_iqq_cart_v1";
     const STORAGE_KEY_DELIVERY = "oni_scents_iqq_delivery_v1";
+    const PRODUCTS_STORAGE_KEY = "oni_scents_iqq_products_v1";
 
     /**
-     * INVENTARIO PRECARGADO DE PERFUMES
-     * Nota: Puedes reemplazar el campo `image` por la URL directa de tu foto real
-     * (ej. "./hugo-boss.jpg"). Si `image` está vacío (""), se mostrará
-     * automáticamente una ilustración vectorial SVG de lujo personalizada por frasco.
+     * INVENTARIO BASE PRECARGADO DE PERFUMES
+     * Si realizas cambios en admin.html y exportas el bloque DEFAULT_PRODUCTS,
+     * reemplaza esta constante para publicarlo globalmente.
      */
-    const PRODUCTS = [
+    const DEFAULT_PRODUCTS = [
       {
         id: "hugo-boss-cantimplora",
         name: "Hugo Boss Cantimplora",
         category: "Diseñador",
         subtitle: "Eau de Toilette • Original Sellado",
         price: 45000,
+        inStock: true,
         image: "",
         bottleStyle: "canteen"
       },
@@ -670,6 +671,7 @@
         category: "Diseñador",
         subtitle: "Calvin Klein • Unisex Original 200ml",
         price: 34990,
+        inStock: true,
         image: "",
         bottleStyle: "flask"
       },
@@ -679,6 +681,7 @@
         category: "Perfumería Árabe",
         subtitle: "Eau de Parfum 100ml • Original Sellado",
         price: 34990,
+        inStock: true,
         image: "",
         bottleStyle: "odyssey"
       },
@@ -688,6 +691,7 @@
         category: "Diseñador",
         subtitle: "Eau de Toilette 100ml • Original Sellado",
         price: 29990,
+        inStock: true,
         image: "",
         bottleStyle: "minimal"
       },
@@ -697,6 +701,7 @@
         category: "Perfumería Árabe",
         subtitle: "Eau de Parfum 90ml • Unisex Sellado",
         price: 16990,
+        inStock: true,
         image: "",
         bottleStyle: "arabic-white"
       },
@@ -706,10 +711,31 @@
         category: "Perfumería Árabe",
         subtitle: "Eau de Parfum 100ml • Original Sellado",
         price: 18990,
+        inStock: true,
         image: "",
         bottleStyle: "arabic-gold"
       }
     ];
+
+    /**
+     * CARGA EL INVENTARIO ACTIVO (DESDE ADMIN LOCAL O BASE PUBLICADA)
+     */
+    function getActiveProducts() {
+      try {
+        const saved = localStorage.getItem(PRODUCTS_STORAGE_KEY);
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            return parsed;
+          }
+        }
+      } catch (error) {
+        console.error("Error cargando inventario personalizado:", error);
+      }
+      return DEFAULT_PRODUCTS;
+    }
+
+    const PRODUCTS = getActiveProducts();
 
     /**
      * ESTADO GLOBAL DE LA APLICACIÓN
@@ -731,7 +757,6 @@
 
     /**
      * GENERADOR DE PLACEHOLDER SVG DE LUJO POR TIPO DE FRASCO
-     * Garantiza una estética impecable antes de subir fotos reales.
      */
     function getBottlePlaceholderSVG(product) {
       const accentMap = {
@@ -783,9 +808,10 @@
         if (savedCart) {
           const parsed = JSON.parse(savedCart);
           if (Array.isArray(parsed)) {
-            state.cart = parsed.filter(item => 
-              PRODUCTS.some(p => p.id === item.id) && item.quantity > 0
-            );
+            state.cart = parsed.filter(item => {
+              const prod = PRODUCTS.find(p => p.id === item.id);
+              return prod && prod.inStock !== false && item.quantity > 0;
+            });
           }
         }
         const savedDelivery = localStorage.getItem(STORAGE_KEY_DELIVERY);
@@ -842,8 +868,8 @@
       });
 
       resultsCounter.textContent = filtered.length === 1
-        ? "Mostrando 1 fragancia disponible"
-        : `Mostrando ${filtered.length} fragancias disponibles`;
+        ? "Mostrando 1 fragancia en catálogo"
+        : `Mostrando ${filtered.length} fragancias en catálogo`;
 
       if (filtered.length === 0) {
         grid.innerHTML = "";
@@ -858,6 +884,7 @@
       grid.innerHTML = filtered.map(product => {
         const formattedPrice = formatCLP(product.price);
         const whatsappUrl = getSingleProductWhatsAppURL(product);
+        const isAvailable = product.inStock !== false;
 
         const mediaHTML = product.image
           ? `<div class="relative w-full h-56 sm:h-60 bg-[#121212] overflow-hidden">
@@ -865,11 +892,39 @@
                  src="${product.image}" 
                  alt="${product.name}" 
                  loading="lazy"
-                 class="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                 class="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105 ${!isAvailable ? 'opacity-50 grayscale' : ''}"
                  onerror="this.parentElement.outerHTML = \`${getBottlePlaceholderSVG(product).replace(/`/g, "\\`")}\`"
                />
              </div>`
           : getBottlePlaceholderSVG(product);
+
+        const stockBadgeHTML = isAvailable
+          ? `<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#0D0D0D]/90 border border-oni-crimson/70 text-[10px] font-bold uppercase tracking-wider text-white backdrop-blur-xs">
+               <span class="w-1.5 h-1.5 rounded-full bg-oni-crimson"></span>
+               STOCK DISPONIBLE
+             </span>`
+          : `<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#0D0D0D]/95 border border-[#555555] text-[10px] font-bold uppercase tracking-wider text-[#999999] backdrop-blur-xs">
+               <span class="w-1.5 h-1.5 rounded-full bg-[#777777]"></span>
+               AGOTADO
+             </span>`;
+
+        const addToCartBtnHTML = isAvailable
+          ? `<button 
+               type="button" 
+               onclick="addToCart('${product.id}')"
+               class="btn-touch w-full px-4 rounded-xl bg-oni-crimson hover:bg-oni-crimsonBright text-white font-semibold text-sm shadow-md shadow-oni-crimson/20 gap-2"
+             >
+               <i class="fa-solid fa-cart-plus"></i>
+               <span>Agregar al carrito</span>
+             </button>`
+          : `<button 
+               type="button" 
+               disabled
+               class="btn-touch w-full px-4 rounded-xl bg-[#1F1F1F] border border-oni-border text-[#777777] font-semibold text-sm cursor-not-allowed gap-2"
+             >
+               <i class="fa-solid fa-ban"></i>
+               <span>Sin stock temporalmente</span>
+             </button>`;
 
         return `
           <article class="product-card group rounded-2xl overflow-hidden flex flex-col justify-between">
@@ -880,10 +935,7 @@
                 
                 <!-- Badges de Estado y Categoría -->
                 <div class="absolute top-3 left-3 right-3 z-20 flex items-center justify-between gap-2 pointer-events-none">
-                  <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#0D0D0D]/90 border border-oni-crimson/70 text-[10px] font-bold uppercase tracking-wider text-white backdrop-blur-xs">
-                    <span class="w-1.5 h-1.5 rounded-full bg-oni-crimson"></span>
-                    STOCK DISPONIBLE
-                  </span>
+                  ${stockBadgeHTML}
                   <span class="px-2.5 py-1 rounded-lg bg-[#0D0D0D]/90 border border-oni-border text-[10px] font-semibold uppercase tracking-wider text-oni-muted backdrop-blur-xs">
                     ${product.category}
                   </span>
@@ -916,14 +968,7 @@
 
               <div class="flex flex-col gap-2.5">
                 <!-- Botón 1 (Primario rojo carmesí): Agregar al carrito -->
-                <button 
-                  type="button" 
-                  onclick="addToCart('${product.id}')"
-                  class="btn-touch w-full px-4 rounded-xl bg-oni-crimson hover:bg-oni-crimsonBright text-white font-semibold text-sm shadow-md shadow-oni-crimson/20 gap-2"
-                >
-                  <i class="fa-solid fa-cart-plus"></i>
-                  <span>Agregar al carrito</span>
-                </button>
+                ${addToCartBtnHTML}
 
                 <!-- Botón 2 (Secundario borde blanco/verde WhatsApp): Consultar disponibilidad -->
                 <a 
@@ -933,7 +978,7 @@
                   class="btn-touch w-full px-4 rounded-xl bg-transparent hover:bg-oni-whatsapp/10 border border-white/25 hover:border-oni-whatsapp text-white hover:text-oni-whatsapp font-semibold text-sm gap-2"
                 >
                   <i class="fa-brands fa-whatsapp text-base text-oni-whatsapp"></i>
-                  <span>Consultar disponibilidad</span>
+                  <span>${isAvailable ? 'Consultar disponibilidad' : 'Consultar próxima llegada'}</span>
                 </a>
               </div>
             </div>
@@ -947,7 +992,7 @@
      */
     function addToCart(productId) {
       const product = PRODUCTS.find(p => p.id === productId);
-      if (!product) return;
+      if (!product || product.inStock === false) return;
 
       const existingItem = state.cart.find(item => item.id === productId);
       if (existingItem) {
