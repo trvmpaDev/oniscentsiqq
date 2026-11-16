@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>ONI SCENTS IQQ | Fragancias Árabes y de Diseñador 100% Originales</title>
+  <meta name="description" content="Catálogo oficial de Oni Scents IQQ (@oniscentsiqq). Perfumería Árabe y de Diseñador 100% original y sellada. Entregas en Iquique, Alto Hospicio y envíos a todo Chile.">
+
+  <!-- Google Fonts: Cinzel (700/900) y Montserrat (400/500/600/700) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            oni: {
+              bg: '#0D0D0D',
+              card: '#161616',
+              border: '#2A2A2A',
+              crimson: '#B22222',
+              crimsonBright: '#D32F2F',
+              whatsapp: '#25D366',
+              whatsappDark: '#1EBE5D',
+              text: '#FFFFFF',
+              muted: '#CCCCCC'
+            }
+          },
+          fontFamily: {
+            cinzel: ['"Cinzel"', 'serif'],
+            montserrat: ['"Montserrat"', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Configuración base y prevención estricta de desbordamiento horizontal */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      max-width: 100%;
+      overflow-x: hidden;
+      background-color: #0D0D0D;
+      color: #FFFFFF;
+      font-family: 'Montserrat', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Tipografía de encabezados */
+    .font-brand {
+      font-family: 'Cinzel', serif;
+    }
+
+    /* Scrollbar personalizado oscuro */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0D0D0D;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #2A2A2A;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #B22222;
+    }
+
+    /* Efectos de brillo y tarjetas */
+    .product-card {
+      background-color: #161616;
+      border: 1px solid #2A2A2A;
+      transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .product-card:hover {
+      border-color: #B22222;
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px -10px rgba(178, 34, 34, 0.28);
+    }
+
+    /* Botones táctiles accesibles (mínimo 44px de alto) */
+    .btn-touch {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.22s ease;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .btn-touch:active {
+      transform: scale(0.98);
+    }
+
+    /* Animación flotante sutil para pétalos sakura y volutas sumi-e */
+    @keyframes floatSlow {
+      0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+      }
+      50% {
+        transform: translateY(-8px) rotate(3deg);
+      }
+    }
+
+    @keyframes driftPetal {
+      0% {
+        transform: translate(0, 0) rotate(0deg);
+        opacity: 0.65;
+      }
+      50% {
+        transform: translate(12px, 14px) rotate(22deg);
+        opacity: 0.9;
+      }
+      100% {
+        transform: translate(0, 0) rotate(0deg);
+        opacity: 0.65;
+      }
+    }
+
+    .animate-smoke {
+      animation: floatSlow 9s ease-in-out infinite;
+    }
+
+    .animate-petal {
+      animation: driftPetal 7s ease-in-out infinite;
+    }
+
+    /* Transición del Drawer lateral / modal móvil */
+    .drawer-backdrop {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .drawer-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .drawer-panel {
+      transform: translateX(100%);
+      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .drawer-panel.open {
+      transform: translateX(0);
+    }
+
+    /* Notificación Toast */
+    .toast-notification {
+      transform: translateY(120%);
+      opacity: 0;
+      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
+    }
+
+    .toast-notification.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  </style>
+</head>
+<body class="bg-oni-bg text-oni-text antialiased selection:bg-oni-crimson selection:text-white">
+
+  <!-- ===================================================================== -->
+  <!-- 1. NAVBAR / HEADER STICKY                                             -->
+  <!-- ===================================================================== -->
+  <header class="sticky top-0 z-40 w-full bg-[#0D0D0D]/95 backdrop-blur-md border-b border-oni-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-2">
+      
+      <!-- Logo SVG Minimalista: Máscara Oni + Frasco de Perfume + Marca -->
+      <a href="#" class="flex items-center gap-2.5 sm:gap-3.5 group focus:outline-none">
+        <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-oni-card border border-oni-border group-hover:border-oni-crimson flex items-center justify-center transition-colors shrink-0">
+          <!-- SVG Personalizado: Silueta geométrica Oni + Atomizador de lujo -->
+          <svg class="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <!-- Cuernos Oni estilizados -->
+            <path d="M18 22C13 15 13 8 17 5C18 11 21 15 24 18" stroke="#B22222" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M46 22C51 15 51 8 47 5C46 11 43 15 40 18" stroke="#B22222" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- Tapón / Atomizador superior -->
+            <rect x="27" y="10" width="10" height="6" rx="1.5" fill="#FFFFFF"/>
+            <rect x="29" y="16" width="6" height="3" fill="#B22222"/>
+            <!-- Cuerpo del frasco con facetas de máscara samurai -->
+            <path d="M17 24C17 21.2386 19.2386 19 22 19H42C44.7614 19 47 21.2386 47 24V46C47 51.5228 42.5228 56 37 56H27C21.4772 56 17 51.5228 17 46V24Z" fill="#161616" stroke="#FFFFFF" stroke-width="2.5"/>
+            <!-- Ojos afilados de Oni en carmesí -->
+            <path d="M22 31L29 34L23 36L22 31Z" fill="#B22222"/>
+            <path d="M42 31L35 34L41 36L42 31Z" fill="#B22222"/>
+            <!-- Colmillos minimalistas -->
+            <path d="M24 46L26 41L28 46" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M36 46L38 41L40 46" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <line x1="23" y1="46" x2="41" y2="46" stroke="#B22222" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-brand font-black text-base sm:text-xl tracking-wider text-white leading-none">
+            ONI SCENTS <span class="text-oni-crimson">IQQ</span>
+          </span>
+          <span class="text-[10px] sm:text-xs text-oni-muted tracking-[0.2em] uppercase mt-1 hidden xs:block">
+            Haute Parfumerie
+          </span>
+        </div>
+      </a>
+
+      <!-- Acciones Derecha: Instagram Oficial + Botón Carrito -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        <!-- Enlace directo a Instagram @oniscentsiqq -->
+        <a 
+          href="https://www.instagram.com/oniscentsiqq" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          aria-label="Seguir a @oniscentsiqq en Instagram"
+          class="btn-touch px-3 sm:px-4 rounded-xl bg-oni-card border border-oni-border hover:border-oni-crimson text-white text-xs sm:text-sm font-medium gap-2"
+        >
+          <i class="fa-brands fa-instagram text-base sm:text-lg text-oni-crimson"></i>
+          <span class="hidden md:inline">@oniscentsiqq</span>
+        </a>
+
+        <!-- Botón Abrir Carrito con contador dinámico -->
+        <button 
+          id="open-cart-btn"
+          type="button"
+          aria-label="Abrir carrito de compras"
+          class="btn-touch relative px-3.5 sm:px-5 rounded-xl bg-oni-card border border-oni-border hover:border-oni-crimson text-white text-xs sm:text-sm font-semibold gap-2.5"
+        >
+          <i class="fa-solid fa-bag-shopping text-base sm:text-lg text-white"></i>
+          <span class="hidden sm:inline">Carrito</span>
+          <!-- Badge contador en rojo carmesí -->
+          <span 
+            id="cart-badge" 
+            class="inline-flex items-center justify-center min-w-[22px] h-[22px] px-1.5 rounded-full bg-oni-crimson text-white text-xs font-bold shadow-sm transition-transform duration-200"
+          >
+            0
+          </span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================================================================== -->
+  <!-- 2. HERO BANNER COMPACTO (ESTÉTICA SUMI-E & PÉTALOS SAKURA)            -->
+  <!-- ===================================================================== -->
+  <section class="relative overflow-hidden border-b border-oni-border bg-gradient-to-b from-[#130909] via-[#0D0D0D] to-[#0D0D0D]">
+    
+    <!-- Arte vectorial de fondo: Volutas de humo japonés (sumi-e) y pétalos de cerezo -->
+    <div class="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+      <!-- Resplandor carmesí sutil -->
+      <div class="absolute -top-24 left-1/2 -translate-x-1/2 w-[540px] h-[260px] bg-oni-crimson/15 blur-[100px] rounded-full"></div>
+      
+      <!-- Humo Sumi-e SVG Izquierda -->
+      <svg class="animate-smoke absolute -left-16 top-2 w-72 sm:w-96 h-auto opacity-25" viewBox="0 0 400 260" fill="none">
+        <path d="M-20 210C45 195 70 135 135 130C195 125 215 175 275 160C325 147 345 90 390 75" stroke="url(#smokeGrad1)" stroke-width="18" stroke-linecap="round"/>
+        <path d="M-30 165C30 140 85 80 155 95C215 108 235 60 310 45" stroke="url(#smokeGrad1)" stroke-width="8" stroke-linecap="round" stroke-dasharray="4 8"/>
+        <defs>
+          <linearGradient id="smokeGrad1" x1="0" y1="200" x2="390" y2="60" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#B22222" stop-opacity="0.7"/>
+            <stop offset="0.6" stop-color="#FFFFFF" stop-opacity="0.25"/>
+            <stop offset="1" stop-color="#0D0D0D" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+      </svg>
+
+      <!-- Humo Sumi-e SVG Derecha -->
+      <svg class="animate-smoke absolute -right-16 bottom-0 w-72 sm:w-96 h-auto opacity-20" style="animation-delay: -4s;" viewBox="0 0 400 260" fill="none">
+        <path d="M420 50C350 75 320 140 250 145C185 150 165 105 100 125C50 140 30 195 -10 215" stroke="url(#smokeGrad2)" stroke-width="16" stroke-linecap="round"/>
+        <defs>
+          <linearGradient id="smokeGrad2" x1="400" y1="50" x2="0" y2="215" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#B22222" stop-opacity="0.8"/>
+            <stop offset="1" stop-color="#0D0D0D" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+      </svg>
+
+      <!-- Pétalos de cerezo minimalistas flotando -->
+      <svg class="animate-petal absolute top-8 left-[14%] w-5 h-5 text-oni-crimson/60" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2C12 2 5 8.5 5 14.5C5 18.5 8.1 21.5 12 22C15.9 21.5 19 18.5 19 14.5C19 8.5 12 2 12 2ZM12 6L10.5 3.5L12 4.5L13.5 3.5L12 6Z"/>
+      </svg>
+      <svg class="animate-petal absolute top-14 right-[18%] w-4 h-4 text-oni-crimson/50" style="animation-delay: -2.5s;" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2C12 2 5 8.5 5 14.5C5 18.5 8.1 21.5 12 22C15.9 21.5 19 18.5 19 14.5C19 8.5 12 2 12 2Z"/>
+      </svg>
+      <svg class="animate-petal absolute bottom-8 left-[26%] w-3.5 h-3.5 text-white/20" style="animation-delay: -4s;" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2C12 2 5 8.5 5 14.5C5 18.5 8.1 21.5 12 22C15.9 21.5 19 18.5 19 14.5C19 8.5 12 2 12 2Z"/>
+      </svg>
+    </div>
+
+    <!-- Contenido Central del Hero -->
+    <div class="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 text-center">
+      <!-- Etiqueta superior -->
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-oni-card/90 border border-oni-border text-xs font-semibold tracking-widest uppercase text-oni-muted mb-4">
+        <span class="w-2 h-2 rounded-full bg-oni-crimson animate-pulse"></span>
+        <span>Catálogo Oficial • @oniscentsiqq</span>
+      </div>
+
+      <!-- Titular Principal en Cinzel -->
+      <h1 class="font-brand font-black text-2xl sm:text-4xl md:text-5xl text-white tracking-wide leading-tight uppercase">
+        EL ARTE DE <span class="text-oni-crimson">IMPONER PRESENCIA</span>
+      </h1>
+
+      <!-- Subtítulo Oficial -->
+      <p class="mt-3.5 sm:mt-4 max-w-2xl mx-auto text-sm sm:text-base text-oni-muted font-normal leading-relaxed">
+        Fragancias Árabes y de Diseñador <strong class="text-white font-semibold">100% Originales y Selladas</strong> • Entregas en <strong class="text-white font-semibold">Iquique y Alto Hospicio</strong> | Envíos a <strong class="text-white font-semibold">todo Chile 🇨🇱</strong>
+      </p>
+
+      <!-- Botones CTA del Hero -->
+      <div class="mt-6 sm:mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
+        <a 
+          href="#catalogo" 
+          class="btn-touch w-full sm:w-auto px-7 rounded-xl bg-oni-crimson hover:bg-oni-crimsonBright text-white font-semibold text-sm tracking-wide shadow-lg shadow-oni-crimson/25 gap-2.5"
+        >
+          <span>Explorar Catálogo</span>
+          <i class="fa-solid fa-arrow-down text-xs"></i>
+        </a>
+
+        <a 
+          href="https://www.instagram.com/oniscentsiqq" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="btn-touch w-full sm:w-auto px-6 rounded-xl bg-oni-card hover:bg-[#1f1f1f] border border-oni-border hover:border-white/40 text-white font-semibold text-sm gap-2.5"
+        >
+          <i class="fa-brands fa-instagram text-lg text-oni-crimson"></i>
+          <span>Seguir en Instagram</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- 3. BARRA DE FILTROS Y BÚSQUEDA EN TIEMPO REAL                         -->
+  <!-- ===================================================================== -->
+  <main id="catalogo" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+    
+    <!-- Encabezado de sección + Controles -->
+    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-6 sm:pb-8 border-b border-oni-border">
+      
+      <!-- Título de Catálogo -->
+      <div>
+        <h2 class="font-brand font-bold text-xl sm:text-2xl text-white tracking-wider uppercase flex items-center gap-2.5">
+          <span class="w-1.5 h-6 bg-oni-crimson rounded-full inline-block"></span>
+          <span>Colección Disponible</span>
+        </h2>
+        <p id="results-counter" class="text-xs sm:text-sm text-oni-muted mt-1">
+          Mostrando 6 fragancias exclusivas en stock
+        </p>
+      </div>
+
+      <!-- Buscador + Botones de Categoría -->
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+        
+        <!-- Input Buscador en Tiempo Real -->
+        <div class="relative flex-1 sm:w-64 md:w-72">
+          <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-oni-muted text-sm pointer-events-none"></i>
+          <input 
+            id="search-input" 
+            type="text" 
+            placeholder="Buscar perfume o marca..." 
+            aria-label="Buscar perfume o marca"
+            class="w-full min-h-[44px] pl-10 pr-9 rounded-xl bg-oni-card border border-oni-border focus:border-oni-crimson focus:outline-none text-sm text-white placeholder-[#777777] transition-colors"
+          >
+          <button 
+            id="clear-search-btn" 
+            type="button" 
+            aria-label="Limpiar búsqueda"
+            class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 w-7 h-7 rounded-lg text-oni-muted hover:text-white items-center justify-center"
+          >
+            <i class="fa-solid fa-xmark text-sm"></i>
+          </button>
+        </div>
+
+        <!-- Botones de Filtro por Categoría -->
+        <div class="flex items-center gap-2 overflow-x-auto pb-1 sm:pb-0" role="group" aria-label="Filtrar por categoría">
+          <button 
+            type="button" 
+            data-category="Todos" 
+            class="filter-btn btn-touch px-4 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap bg-oni-crimson text-white border border-oni-crimson"
+          >
+            Todos
+          </button>
+          <button 
+            type="button" 
+            data-category="Perfumería Árabe" 
+            class="filter-btn btn-touch px-4 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap bg-oni-card text-oni-muted border border-oni-border hover:border-oni-crimson hover:text-white"
+          >
+            Perfumería Árabe
+          </button>
+          <button 
+            type="button" 
+            data-category="Diseñador" 
+            class="filter-btn btn-touch px-4 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap bg-oni-card text-oni-muted border border-oni-border hover:border-oni-crimson hover:text-white"
+          >
+            Diseñador
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- =================================================================== -->
+    <!-- 4. CATÁLOGO EN GRID RESPONSIVO (1 col móvil, 2 tablet, 3 desktop)   -->
+    <!-- =================================================================== -->
+    <div id="products-grid" class="mt-6 sm:mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+      <!-- Las tarjetas se renderizan dinámicamente desde el inventario JS -->
+    </div>
+
+    <!-- Estado vacío cuando no hay coincidencias de búsqueda -->
+    <div id="empty-state" class="hidden py-16 text-center bg-oni-card border border-oni-border rounded-2xl mt-6 px-4">
+      <div class="w-14 h-14 rounded-2xl bg-oni-bg border border-oni-border mx-auto flex items-center justify-center text-oni-crimson text-2xl mb-4">
+        <i class="fa-solid fa-spray-can-sparkles"></i>
+      </div>
+      <h3 class="font-brand font-bold text-lg text-white">No encontramos esa fragancia</h3>
+      <p class="text-sm text-oni-muted mt-1.5 max-w-md mx-auto">
+        Intenta con otro nombre o consúltanos directamente por WhatsApp si buscas algún perfume por encargo.
+      </p>
+      <div class="mt-5 flex flex-col sm:flex-row items-center justify-center gap-3">
+        <button 
+          id="reset-filters-btn" 
+          type="button"
+          class="btn-touch px-5 rounded-xl bg-oni-crimson hover:bg-oni-crimsonBright text-white text-sm font-semibold"
+        >
+          Ver todo el catálogo
+        </button>
+        <a 
+          href="https://wa.me/56944306373?text=Hola%20Oni%20Scents%20IQQ%20%F0%9F%91%B9%2C%20busco%20una%20fragancia%20en%20particular." 
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="btn-touch px-5 rounded-xl bg-oni-bg border border-oni-whatsapp text-oni-whatsapp hover:bg-oni-whatsapp hover:text-black text-sm font-semibold gap-2"
+        >
+          <i class="fa-brands fa-whatsapp text-base"></i>
+          <span>Consultar por encargo</span>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- ===================================================================== -->
+  <!-- 5. DRAWER LATERAL / MODAL DE CARRITO DE COMPRAS                       -->
+  <!-- ===================================================================== -->
+  <div id="cart-backdrop" class="drawer-backdrop fixed inset-0 z-50 bg-black/80 backdrop-blur-xs" aria-hidden="true"></div>
+
+  <aside 
+    id="cart-drawer" 
+    role="dialog" 
+    aria-modal="true" 
+    aria-label="Carrito de compras Oni Scents IQQ"
+    class="drawer-panel fixed top-0 right-0 z-50 h-full w-full sm:w-[440px] max-w-full bg-[#121212] border-l border-oni-border flex flex-col shadow-2xl"
+  >
+    <!-- Cabecera del Carrito -->
+    <div class="px-5 py-4 bg-oni-card border-b border-oni-border flex items-center justify-between shrink-0">
+      <div class="flex items-center gap-2.5">
+        <i class="fa-solid fa-bag-shopping text-oni-crimson text-lg"></i>
+        <h2 class="font-brand font-bold text-base sm:text-lg text-white tracking-wider uppercase">
+          Tu Selección
+        </h2>
+        <span id="drawer-count" class="text-xs font-semibold px-2 py-0.5 rounded-full bg-oni-bg border border-oni-border text-oni-muted">
+          0 unid.
+        </span>
+      </div>
+      <button 
+        id="close-cart-btn" 
+        type="button" 
+        aria-label="Cerrar carrito"
+        class="btn-touch w-11 h-11 rounded-xl bg-oni-bg border border-oni-border hover:border-oni-crimson text-oni-muted hover:text-white"
+      >
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+    </div>
+
+    <!-- Lista de Productos en el Carrito -->
+    <div id="cart-items-container" class="flex-1 overflow-y-auto p-4 sm:p-5 space-y-3">
+      <!-- Renderizado dinámico JS -->
+    </div>
+
+    <!-- Pie del Carrito: Modalidad de entrega, Total y Cierre por WhatsApp -->
+    <div id="cart-footer" class="p-4 sm:p-5 bg-oni-card border-t border-oni-border space-y-4 shrink-0">
+      
+      <!-- Selector de Modalidad de Entrega -->
+      <div>
+        <label for="delivery-method" class="block text-xs font-semibold uppercase tracking-wider text-oni-muted mb-1.5">
+          <i class="fa-solid fa-truck-fast text-oni-crimson mr-1"></i> Modalidad de entrega
+        </label>
+        <div class="relative">
+          <select 
+            id="delivery-method" 
+            class="w-full min-h-[44px] pl-3.5 pr-10 rounded-xl bg-oni-bg border border-oni-border focus:border-oni-crimson focus:outline-none text-sm text-white font-medium appearance-none cursor-pointer"
+          >
+            <option value="Entrega presencial Iquique">Entrega presencial Iquique</option>
+            <option value="Entrega presencial Alto Hospicio">Entrega presencial Alto Hospicio</option>
+            <option value="Envío a regiones (Todo Chile)">Envío a regiones (Todo Chile)</option>
+          </select>
+          <i class="fa-solid fa-chevron-down absolute right-3.5 top-1/2 -translate-y-1/2 text-xs text-oni-muted pointer-events-none"></i>
+        </div>
+      </div>
+
+      <!-- Resumen de Subtotal y Total en CLP -->
+      <div class="space-y-1.5 pt-1 border-t border-oni-border/70">
+        <div class="flex items-center justify-between text-xs sm:text-sm text-oni-muted">
+          <span>Subtotal</span>
+          <span id="cart-subtotal">$0</span>
+        </div>
+        <div class="flex items-center justify-between text-base sm:text-lg font-bold text-white">
+          <span>Total estimado</span>
+          <span id="cart-total" class="text-oni-crimson font-extrabold">$0</span>
+        </div>
+      </div>
+
+      <!-- Botón Final de Cierre por WhatsApp -->
+      <button 
+        id="checkout-whatsapp-btn" 
+        type="button"
+        class="btn-touch w-full px-5 rounded-xl bg-oni-whatsapp hover:bg-oni-whatsappDark text-black font-bold text-sm shadow-lg shadow-oni-whatsapp/20 gap-2.5"
+      >
+        <i class="fa-brands fa-whatsapp text-xl"></i>
+        <span>Consultar / Pedir Lote por WhatsApp</span>
+      </button>
+
+      <!-- Opción secundaria para vaciar carrito -->
+      <button 
+        id="clear-cart-btn" 
+        type="button"
+        class="w-full text-center text-xs text-oni-muted hover:text-oni-crimson transition-colors py-1"
+      >
+        Vaciar selección
+      </button>
+    </div>
+  </aside>
+
+  <!-- ===================================================================== -->
+  <!-- 6. FOOTER OFICIAL                                                     -->
+  <!-- ===================================================================== -->
+  <footer class="bg-[#090909] border-t border-oni-border mt-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+        
+        <!-- Columna 1: Branding -->
+        <div class="space-y-3">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-lg bg-oni-card border border-oni-crimson/60 flex items-center justify-center text-oni-crimson">
+              <i class="fa-solid fa-torii-gate"></i>
+            </div>
+            <span class="font-brand font-black text-lg tracking-wider text-white">
+              ONI SCENTS <span class="text-oni-crimson">IQQ</span>
+            </span>
+          </div>
+          <p class="text-xs sm:text-sm text-oni-muted leading-relaxed">
+            Perfumería de nicho accesible, árabe y de diseñador. Garantizamos fragancias <strong class="text-white">100% originales en caja sellada de fábrica</strong>.
+          </p>
+        </div>
+
+        <!-- Columna 2: Cobertura y Garantía -->
+        <div class="space-y-2.5">
+          <h3 class="font-brand font-bold text-sm uppercase tracking-wider text-white">
+            Entregas y Envíos
+          </h3>
+          <ul class="space-y-2 text-xs sm:text-sm text-oni-muted">
+            <li class="flex items-center gap-2.5">
+              <i class="fa-solid fa-location-dot text-oni-crimson w-4 text-center"></i>
+              <span>Entregas presenciales en <strong class="text-white">Iquique</strong></span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <i class="fa-solid fa-location-dot text-oni-crimson w-4 text-center"></i>
+              <span>Entregas presenciales en <strong class="text-white">Alto Hospicio</strong></span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <i class="fa-solid fa-box-open text-oni-crimson w-4 text-center"></i>
+              <span>Envíos por pagar a <strong class="text-white">todo Chile 🇨🇱</strong></span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Columna 3: Contacto Directo -->
+        <div class="space-y-3">
+          <h3 class="font-brand font-bold text-sm uppercase tracking-wider text-white">
+            Canales Oficiales
+          </h3>
+          <div class="flex flex-col sm:flex-row md:flex-col gap-2.5">
+            <a 
+              href="https://wa.me/56944306373?text=Hola%20Oni%20Scents%20IQQ%20%F0%9F%91%B9%2C%20quisiera%20hacer%20una%20consulta%20sobre%20sus%20perfumes." 
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="btn-touch px-4 rounded-xl bg-oni-card border border-oni-whatsapp/60 hover:bg-oni-whatsapp hover:text-black text-white text-xs sm:text-sm font-semibold gap-2.5 justify-start sm:justify-center md:justify-start"
+            >
+              <i class="fa-brands fa-whatsapp text-lg text-oni-whatsapp group-hover:text-black"></i>
+              <span>WhatsApp: +56 9 4430 6373</span>
+            </a>
+
+            <a 
+              href="https://www.instagram.com/oniscentsiqq" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="btn-touch px-4 rounded-xl bg-oni-card border border-oni-border hover:border-oni-crimson text-white text-xs sm:text-sm font-semibold gap-2.5 justify-start sm:justify-center md:justify-start"
+            >
+              <i class="fa-brands fa-instagram text-lg text-oni-crimson"></i>
+              <span>Instagram: @oniscentsiqq</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Línea Inferior Copyright -->
+      <div class="mt-8 pt-6 border-t border-oni-border/70 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#888888]">
+        <p>© <span id="current-year"></span> ONI SCENTS IQQ. Todos los derechos reservados.</p>
+        <p class="flex items-center gap-1.5">
+          <i class="fa-solid fa-shield-halved text-oni-crimson"></i>
+          <span>100% Originales & Sellados • Tarapacá, Chile</span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===================================================================== -->
+  <!-- NOTIFICACIÓN TOAST FLOTANTE                                           -->
+  <!-- ===================================================================== -->
+  <div 
+    id="toast" 
+    role="status" 
+    aria-live="polite"
+    class="toast-notification fixed bottom-5 left-4 right-4 sm:left-auto sm:right-6 z-50 sm:max-w-sm bg-oni-card border border-oni-crimson text-white px-4 py-3.5 rounded-xl shadow-2xl flex items-center justify-between gap-3"
+  >
+    <div class="flex items-center gap-3 min-w-0">
+      <div class="w-8 h-8 rounded-lg bg-oni-crimson/20 border border-oni-crimson flex items-center justify-center text-oni-crimson shrink-0">
+        <i class="fa-solid fa-check"></i>
+      </div>
+      <div class="truncate">
+        <p class="text-xs font-bold uppercase tracking-wider text-oni-crimson">Agregado al lote</p>
+        <p id="toast-message" class="text-xs sm:text-sm text-white font-medium truncate">Perfume añadido</p>
+      </div>
+    </div>
+    <button 
+      id="toast-view-cart" 
+      type="button"
+      class="text-xs font-bold uppercase tracking-wider text-white bg-oni-crimson hover:bg-oni-crimsonBright px-3 py-2 rounded-lg shrink-0"
+    >
+      Ver
+    </button>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- JAVASCRIPT VANILLA: INVENTARIO, FILTROS, CARRITO Y WHATSAPP           -->
+  <!-- ===================================================================== -->
+  <script>
+    /**
+     * CONFIGURACIÓN DE CONTACTO OFICIAL ONI SCENTS IQQ
+     */
+    const WHATSAPP_NUMBER = "56944306373";
+    const STORAGE_KEY_CART = "oni_scents_iqq_cart_v1";
+    const STORAGE_KEY_DELIVERY = "oni_scents_iqq_delivery_v1";
+
+    /**
+     * INVENTARIO PRECARGADO DE PERFUMES
+     * Nota: Puedes reemplazar el campo `image` por la URL directa de tu foto real
+     * (ej. "img/hugo-boss.jpg"). Si `image` está vacío (""), se mostrará
+     * automáticamente una ilustración vectorial SVG de lujo personalizada por frasco.
+     */
+    const PRODUCTS = [
+      {
+        id: "hugo-boss-cantimplora",
+        name: "Hugo Boss Cantimplora",
+        category: "Diseñador",
+        subtitle: "Eau de Toilette • Original Sellado",
+        price: 45000,
+        image: "",
+        bottleStyle: "canteen"
+      },
+      {
+        id: "ck-one-200ml",
+        name: "CK One 200 ML",
+        category: "Diseñador",
+        subtitle: "Calvin Klein • Unisex Original 200ml",
+        price: 34990,
+        image: "",
+        bottleStyle: "flask"
+      },
+      {
+        id: "armaf-odyssey-mandarin-sky",
+        name: "Armaf Odyssey Mandarín Sky",
+        category: "Perfumería Árabe",
+        subtitle: "Eau de Parfum 100ml • Original Sellado",
+        price: 34990,
+        image: "",
+        bottleStyle: "odyssey"
+      },
+      {
+        id: "clinique-happy-for-men",
+        name: "Clinique Happy For Men",
+        category: "Diseñador",
+        subtitle: "Eau de Toilette 100ml • Original Sellado",
+        price: 29990,
+        image: "",
+        bottleStyle: "minimal"
+      },
+      {
+        id: "lattafa-qaed-al-fursan-unlimited",
+        name: "Lattafa Qaed Al Fursan Unlimited",
+        category: "Perfumería Árabe",
+        subtitle: "Eau de Parfum 90ml • Unisex Sellado",
+        price: 16990,
+        image: "",
+        bottleStyle: "arabic-white"
+      },
+      {
+        id: "lattafa-hayaati-gold-elixir",
+        name: "Lattafa Hayaati Gold Elixir",
+        category: "Perfumería Árabe",
+        subtitle: "Eau de Parfum 100ml • Original Sellado",
+        price: 18990,
+        image: "",
+        bottleStyle: "arabic-gold"
+      }
+    ];
+
+    /**
+     * ESTADO GLOBAL DE LA APLICACIÓN
+     */
+    let state = {
+      searchQuery: "",
+      activeCategory: "Todos",
+      cart: [], // Array de objetos: { id, quantity }
+      deliveryMethod: "Entrega presencial Iquique"
+    };
+
+    /**
+     * FORMATEADOR DE PRECIOS EN PESOS CHILENOS (CLP SIN DECIMALES)
+     * Ejemplo: 45000 -> "$45.000"
+     */
+    function formatCLP(amount) {
+      return "$" + Math.round(amount).toLocaleString("es-CL");
+    }
+
+    /**
+     * GENERADOR DE PLACEHOLDER SVG DE LUJO POR TIPO DE FRASCO
+     * Garantiza una estética impecable antes de subir fotos reales.
+     */
+    function getBottlePlaceholderSVG(product) {
+      const accentMap = {
+        "canteen": { main: "#1E1E1E", trim: "#B22222", label: "BOSS" },
+        "flask": { main: "#222222", trim: "#CCCCCC", label: "CK ONE" },
+        "odyssey": { main: "#1A1614", trim: "#D97706", label: "ODYSSEY" },
+        "minimal": { main: "#1F1A17", trim: "#EA580C", label: "HAPPY" },
+        "arabic-white": { main: "#242424", trim: "#E5E5E5", label: "LATTAFA" },
+        "arabic-gold": { main: "#1D1912", trim: "#D4AF37", label: "HAYAATI" }
+      };
+
+      const style = accentMap[product.bottleStyle] || { main: "#1E1E1E", trim: "#B22222", label: "ONI" };
+
+      return `
+        <div class="relative w-full h-56 sm:h-60 bg-gradient-to-b from-[#1C1C1C] via-[#131313] to-[#0E0E0E] flex flex-col items-center justify-center overflow-hidden p-4 select-none">
+          <!-- Círculo japonés enso detrás del frasco -->
+          <div class="absolute w-36 h-36 rounded-full border border-oni-crimson/25 bg-oni-crimson/[0.04]"></div>
+          
+          <!-- Ilustración Vectorial del Frasco -->
+          <svg class="relative z-10 w-28 h-36 drop-shadow-[0_10px_16px_rgba(0,0,0,0.85)] transition-transform duration-500 group-hover:scale-105" viewBox="0 0 120 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Tapa del perfume -->
+            <rect x="44" y="14" width="32" height="18" rx="3" fill="#2A2A2A" stroke="${style.trim}" stroke-width="1.5"/>
+            <!-- Cuello atomizador -->
+            <rect x="50" y="32" width="20" height="8" fill="#141414" stroke="#555555" stroke-width="1"/>
+            <!-- Hombros y cuerpo del frasco -->
+            <path d="M28 52C28 45.3726 33.3726 40 40 40H80C86.6274 40 92 45.3726 92 52V132C92 139.732 85.732 146 78 146H42C34.268 146 28 139.732 28 132V52Z" fill="${style.main}" stroke="#3A3A3A" stroke-width="2"/>
+            <!-- Reflejo de cristal -->
+            <path d="M35 50V134" stroke="rgba(255,255,255,0.12)" stroke-width="3" stroke-linecap="round"/>
+            <!-- Etiqueta central minimalista -->
+            <rect x="36" y="64" width="48" height="56" rx="4" fill="#0D0D0D" stroke="${style.trim}" stroke-width="1.2"/>
+            <text x="60" y="88" text-anchor="middle" fill="#FFFFFF" font-family="Cinzel, serif" font-size="8.5" font-weight="700" letter-spacing="1">${style.label}</text>
+            <line x1="45" y1="95" x2="75" y2="95" stroke="#B22222" stroke-width="1"/>
+            <text x="60" y="106" text-anchor="middle" fill="#CCCCCC" font-family="Montserrat, sans-serif" font-size="6" letter-spacing="1.2">ORIGINAL</text>
+          </svg>
+
+          <span class="relative z-10 mt-1 text-[10px] uppercase tracking-[0.22em] text-[#777777] font-medium">
+            Caja Sellada • 100% Auténtico
+          </span>
+        </div>
+      `;
+    }
+
+    /**
+     * PERSISTENCIA EN LOCALSTORAGE
+     */
+    function loadFromStorage() {
+      try {
+        const savedCart = localStorage.getItem(STORAGE_KEY_CART);
+        if (savedCart) {
+          const parsed = JSON.parse(savedCart);
+          if (Array.isArray(parsed)) {
+            // Validar que solo queden IDs existentes en el inventario
+            state.cart = parsed.filter(item => 
+              PRODUCTS.some(p => p.id === item.id) && item.quantity > 0
+            );
+          }
+        }
+        const savedDelivery = localStorage.getItem(STORAGE_KEY_DELIVERY);
+        if (savedDelivery) {
+          state.deliveryMethod = savedDelivery;
+        }
+      } catch (error) {
+        console.error("Error leyendo localStorage:", error);
+      }
+    }
+
+    function saveCartToStorage() {
+      try {
+        localStorage.setItem(STORAGE_KEY_CART, JSON.stringify(state.cart));
+      } catch (error) {
+        console.error("Error guardando carrito en localStorage:", error);
+      }
+    }
+
+    function saveDeliveryToStorage() {
+      try {
+        localStorage.setItem(STORAGE_KEY_DELIVERY, state.deliveryMethod);
+      } catch (error) {
+        console.error("Error guardando modalidad de entrega:", error);
+      }
+    }
+
+    /**
+     * GENERAR ENLACE WHATSAPP INDIVIDUAL POR PERFUME
+     * Mensaje exacto: "Hola Oni Scents IQQ 👹, quiero consultar disponibilidad por el perfume: [NOMBRE DEL PERFUME] ($[PRECIO])."
+     */
+    function getSingleProductWhatsAppURL(product) {
+      const formattedPrice = formatCLP(product.price);
+      const message = `Hola Oni Scents IQQ 👹, quiero consultar disponibilidad por el perfume: ${product.name} (${formattedPrice}).`;
+      return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+    }
+
+    /**
+     * RENDERIZADO DEL CATÁLOGO DE PRODUCTOS
+     */
+    function renderProducts() {
+      const grid = document.getElementById("products-grid");
+      const emptyState = document.getElementById("empty-state");
+      const resultsCounter = document.getElementById("results-counter");
+
+      const query = state.searchQuery.trim().toLowerCase();
+
+      const filtered = PRODUCTS.filter(product => {
+        const matchesCategory = state.activeCategory === "Todos" || product.category === state.activeCategory;
+        const matchesSearch =
+          product.name.toLowerCase().includes(query) ||
+          product.subtitle.toLowerCase().includes(query) ||
+          product.category.toLowerCase().includes(query);
+        return matchesCategory && matchesSearch;
+      });
+
+      // Actualizar contador de resultados
+      resultsCounter.textContent = filtered.length === 1
+        ? "Mostrando 1 fragancia disponible"
+        : `Mostrando ${filtered.length} fragancias disponibles`;
+
+      if (filtered.length === 0) {
+        grid.innerHTML = "";
+        grid.classList.add("hidden");
+        emptyState.classList.remove("hidden");
+        return;
+      }
+
+      emptyState.classList.add("hidden");
+      grid.classList.remove("hidden");
+
+      grid.innerHTML = filtered.map(product => {
+        const formattedPrice = formatCLP(product.price);
+        const whatsappUrl = getSingleProductWhatsAppURL(product);
+
+        // Si tiene URL de imagen real, usarla con fallback al placeholder SVG
+        const mediaHTML = product.image
+          ? `<div class="relative w-full h-56 sm:h-60 bg-[#121212] overflow-hidden">
+               <img 
+                 src="${product.image}" 
+                 alt="${product.name}" 
+                 loading="lazy"
+                 class="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                 onerror="this.parentElement.outerHTML = \`${getBottlePlaceholderSVG(product).replace(/`/g, "\\`")}\`"
+               />
+             </div>`
+          : getBottlePlaceholderSVG(product);
+
+        return `
+          <article class="product-card group rounded-2xl overflow-hidden flex flex-col justify-between">
+            <div>
+              <!-- Contenedor de Imagen / Frasco + Badges superiores -->
+              <div class="relative border-b border-oni-border">
+                ${mediaHTML}
+                
+                <!-- Badges de Estado y Categoría -->
+                <div class="absolute top-3 left-3 right-3 z-20 flex items-center justify-between gap-2 pointer-events-none">
+                  <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#0D0D0D]/90 border border-oni-crimson/70 text-[10px] font-bold uppercase tracking-wider text-white backdrop-blur-xs">
+                    <span class="w-1.5 h-1.5 rounded-full bg-oni-crimson"></span>
+                    STOCK DISPONIBLE
+                  </span>
+                  <span class="px-2.5 py-1 rounded-lg bg-[#0D0D0D]/90 border border-oni-border text-[10px] font-semibold uppercase tracking-wider text-oni-muted backdrop-blur-xs">
+                    ${product.category}
+                  </span>
+                </div>
+              </div>
+
+              <!-- Información del Perfume -->
+              <div class="p-5 pb-3">
+                <div class="flex items-center gap-1.5 text-[11px] font-semibold text-oni-crimson uppercase tracking-wider mb-1">
+                  <i class="fa-solid fa-certificate text-[10px]"></i>
+                  <span>ORIGINAL SELLADO</span>
+                </div>
+
+                <h3 class="font-bold text-lg sm:text-xl text-white leading-snug group-hover:text-oni-crimson transition-colors">
+                  ${product.name}
+                </h3>
+
+                <p class="text-xs sm:text-sm text-oni-muted mt-1">
+                  ${product.subtitle}
+                </p>
+              </div>
+            </div>
+
+            <!-- Precio y Botones de Acción -->
+            <div class="p-5 pt-2 mt-auto">
+              <div class="flex items-baseline justify-between mb-4 pt-3 border-t border-oni-border/70">
+                <span class="text-xs uppercase tracking-wider text-oni-muted font-medium">Precio contado</span>
+                <span class="text-2xl font-extrabold text-white tracking-tight">${formattedPrice}</span>
+              </div>
+
+              <div class="flex flex-col gap-2.5">
+                <!-- Botón 1 (Primario rojo carmesí): Agregar al carrito -->
+                <button 
+                  type="button" 
+                  onclick="addToCart('${product.id}')"
+                  class="btn-touch w-full px-4 rounded-xl bg-oni-crimson hover:bg-oni-crimsonBright text-white font-semibold text-sm shadow-md shadow-oni-crimson/20 gap-2"
+                >
+                  <i class="fa-solid fa-cart-plus"></i>
+                  <span>Agregar al carrito</span>
+                </button>
+
+                <!-- Botón 2 (Secundario borde blanco/verde WhatsApp): Consultar disponibilidad -->
+                <a 
+                  href="${whatsappUrl}" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  class="btn-touch w-full px-4 rounded-xl bg-transparent hover:bg-oni-whatsapp/10 border border-white/25 hover:border-oni-whatsapp text-white hover:text-oni-whatsapp font-semibold text-sm gap-2"
+                >
+                  <i class="fa-brands fa-whatsapp text-base text-oni-whatsapp"></i>
+                  <span>Consultar disponibilidad</span>
+                </a>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    /**
+     * LÓGICA DEL CARRITO DE COMPRAS
+     */
+    function addToCart(productId) {
+      const product = PRODUCTS.find(p => p.id === productId);
+      if (!product) return;
+
+      const existingItem = state.cart.find(item => item.id === productId);
+      if (existingItem) {
+        existingItem.quantity += 1;
+      } else {
+        state.cart.push({ id: productId, quantity: 1 });
+      }
+
+      saveCartToStorage();
+      updateCartUI();
+      animateCartBadge();
+      showToast(`${product.name} (${formatCLP(product.price)})`);
+    }
+
+    function updateItemQuantity(productId, delta) {
+      const itemIndex = state.cart.findIndex(item => item.id === productId);
+      if (itemIndex === -1) return;
+
+      state.cart[itemIndex].quantity += delta;
+
+      if (state.cart[itemIndex].quantity <= 0) {
+        state.cart.splice(itemIndex, 1);
+      }
+
+      saveCartToStorage();
+      updateCartUI();
+    }
+
+    function removeFromCart(productId) {
+      state.cart = state.cart.filter(item => item.id !== productId);
+      saveCartToStorage();
+      updateCartUI();
+    }
+
+    function clearCart() {
+      state.cart = [];
+      saveCartToStorage();
+      updateCartUI();
+    }
+
+    /**
+     * ACTUALIZACIÓN DE INTERFAZ DEL CARRITO (BADGE, LISTA, SUBTOTAL Y TOTAL)
+     */
+    function updateCartUI() {
+      const cartBadge = document.getElementById("cart-badge");
+      const drawerCount = document.getElementById("drawer-count");
+      const container = document.getElementById("cart-items-container");
+      const footer = document.getElementById("cart-footer");
+      const subtotalEl = document.getElementById("cart-subtotal");
+      const totalEl = document.getElementById("cart-total");
+
+      const totalUnits = state.cart.reduce((sum, item) => sum + item.quantity, 0);
+      cartBadge.textContent = totalUnits;
+      drawerCount.textContent = totalUnits === 1 ? "1 unid." : `${totalUnits} unid.`;
+
+      if (state.cart.length === 0) {
+        footer.classList.add("hidden");
+        container.innerHTML = `
+          <div class="h-full flex flex-col items-center justify-center text-center py-12 px-4">
+            <div class="w-16 h-16 rounded-2xl bg-oni-card border border-oni-border flex items-center justify-center text-oni-muted text-2xl mb-4">
+              <i class="fa-solid fa-bag-shopping"></i>
+            </div>
+            <h3 class="font-brand font-bold text-base text-white">Tu carrito está vacío</h3>
+            <p class="text-xs sm:text-sm text-oni-muted mt-1.5 max-w-xs">
+              Agrega tus fragancias favoritas del catálogo para armar tu lote y pedirlo directo por WhatsApp.
+            </p>
+            <button 
+              type="button" 
+              onclick="closeCartDrawer()"
+              class="btn-touch mt-5 px-5 rounded-xl bg-oni-crimson hover:bg-oni-crimsonBright text-white text-xs sm:text-sm font-semibold"
+            >
+              Explorar perfumes
+            </button>
+          </div>
+        `;
+        return;
+      }
+
+      footer.classList.remove("hidden");
+
+      let totalAmount = 0;
+
+      container.innerHTML = state.cart.map(item => {
+        const product = PRODUCTS.find(p => p.id === item.id);
+        if (!product) return "";
+
+        const itemTotal = product.price * item.quantity;
+        totalAmount += itemTotal;
+
+        return `
+          <div class="p-3.5 rounded-xl bg-oni-card border border-oni-border flex items-center justify-between gap-3">
+            <!-- Info del perfume -->
+            <div class="min-w-0 flex-1">
+              <span class="text-[10px] font-semibold uppercase tracking-wider text-oni-crimson block">
+                ${product.category}
+              </span>
+              <h4 class="font-bold text-sm text-white truncate" title="${product.name}">
+                ${product.name}
+              </h4>
+              <p class="text-xs text-oni-muted mt-0.5">
+                ${formatCLP(product.price)} c/u • <strong class="text-white">${formatCLP(itemTotal)}</strong>
+              </p>
+            </div>
+
+            <!-- Controles de Cantidad (+ / -) y Eliminar -->
+            <div class="flex items-center gap-1.5 shrink-0">
+              <button 
+                type="button" 
+                onclick="updateItemQuantity('${product.id}', -1)"
+                aria-label="Disminuir cantidad de ${product.name}"
+                class="w-9 h-9 rounded-lg bg-oni-bg border border-oni-border hover:border-oni-crimson text-white flex items-center justify-center text-xs font-bold transition-colors"
+              >
+                <i class="fa-solid fa-minus"></i>
+              </button>
+
+              <span class="w-7 text-center text-sm font-bold text-white">
+                ${item.quantity}
+              </span>
+
+              <button 
+                type="button" 
+                onclick="updateItemQuantity('${product.id}', 1)"
+                aria-label="Aumentar cantidad de ${product.name}"
+                class="w-9 h-9 rounded-lg bg-oni-bg border border-oni-border hover:border-oni-crimson text-white flex items-center justify-center text-xs font-bold transition-colors"
+              >
+                <i class="fa-solid fa-plus"></i>
+              </button>
+
+              <button 
+                type="button" 
+                onclick="removeFromCart('${product.id}')"
+                aria-label="Eliminar ${product.name} del carrito"
+                class="w-9 h-9 ml-1 rounded-lg bg-oni-bg border border-oni-border hover:border-oni-crimson text-oni-muted hover:text-oni-crimson flex items-center justify-center text-xs transition-colors"
+              >
+                <i class="fa-solid fa-trash-can"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      const formattedTotal = formatCLP(totalAmount);
+      subtotalEl.textContent = formattedTotal;
+      totalEl.textContent = formattedTotal;
+    }
+
+    /**
+     * ENVIAR LOTE DEL CARRITO POR WHATSAPP
+     * Construye el resumen detallado con cantidades, precios, modalidad de entrega y total.
+     */
+    function sendCartToWhatsApp() {
+      if (state.cart.length === 0) return;
+
+      let totalAmount = 0;
+      const lines = state.cart.map(item => {
+        const product = PRODUCTS.find(p => p.id === item.id);
+        if (!product) return "";
+        const lineSubtotal = product.price * item.quantity;
+        totalAmount += lineSubtotal;
+        return `- ${item.quantity}x ${product.name} (${formatCLP(lineSubtotal)})`;
+      }).filter(Boolean);
+
+      // Simplificar etiqueta de entrega para lectura clara en WhatsApp
+      let entregaTexto = state.deliveryMethod;
+      if (state.deliveryMethod === "Entrega presencial Iquique") {
+        entregaTexto = "Iquique (Entrega presencial)";
+      } else if (state.deliveryMethod === "Entrega presencial Alto Hospicio") {
+        entregaTexto = "Alto Hospicio (Entrega presencial)";
+      } else if (state.deliveryMethod === "Envío a regiones (Todo Chile)") {
+        entregaTexto = "Envío a regiones (Todo Chile)";
+      }
+
+      const fullMessage =
+        `Hola Oni Scents IQQ 👹, quiero consultar disponibilidad y pedir el siguiente lote:\n` +
+        `${lines.join("\n")}\n` +
+        `Entrega: ${entregaTexto}\n` +
+        `Total estimado: ${formatCLP(totalAmount)}`;
+
+      const whatsappURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(fullMessage)}`;
+      window.open(whatsappURL, "_blank", "noopener,noreferrer");
+    }
+
+    /**
+     * CONTROL DEL DRAWER LATERAL DEL CARRITO
+     */
+    function openCartDrawer() {
+      const backdrop = document.getElementById("cart-backdrop");
+      const drawer = document.getElementById("cart-drawer");
+      backdrop.classList.add("open");
+      drawer.classList.add("open");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeCartDrawer() {
+      const backdrop = document.getElementById("cart-backdrop");
+      const drawer = document.getElementById("cart-drawer");
+      backdrop.classList.remove("open");
+      drawer.classList.remove("open");
+      document.body.style.overflow = "";
+    }
+
+    /**
+     * ANIMACIÓN Y NOTIFICACIÓN TOAST
+     */
+    let toastTimeout = null;
+    function showToast(text) {
+      const toast = document.getElementById("toast");
+      const toastMessage = document.getElementById("toast-message");
+      toastMessage.textContent = text;
+
+      toast.classList.add("show");
+      if (toastTimeout) clearTimeout(toastTimeout);
+
+      toastTimeout = setTimeout(() => {
+        toast.classList.remove("show");
+      }, 3200);
+    }
+
+    function animateCartBadge() {
+      const badge = document.getElementById("cart-badge");
+      badge.classList.add("scale-125");
+      setTimeout(() => badge.classList.remove("scale-125"), 220);
+    }
+
+    /**
+     * INICIALIZACIÓN DE EVENTOS AL CARGAR EL DOM
+     */
+    document.addEventListener("DOMContentLoaded", () => {
+      // Año actual en footer
+      document.getElementById("current-year").textContent = new Date().getFullYear();
+
+      // Cargar datos persistentes
+      loadFromStorage();
+
+      // Sincronizar selector de entrega
+      const deliverySelect = document.getElementById("delivery-method");
+      deliverySelect.value = state.deliveryMethod;
+      deliverySelect.addEventListener("change", (e) => {
+        state.deliveryMethod = e.target.value;
+        saveDeliveryToStorage();
+      });
+
+      // Render inicial
+      renderProducts();
+      updateCartUI();
+
+      // Buscador en tiempo real
+      const searchInput = document.getElementById("search-input");
+      const clearSearchBtn = document.getElementById("clear-search-btn");
+
+      searchInput.addEventListener("input", (e) => {
+        state.searchQuery = e.target.value;
+        if (state.searchQuery.length > 0) {
+          clearSearchBtn.classList.remove("hidden");
+          clearSearchBtn.classList.add("flex");
+        } else {
+          clearSearchBtn.classList.add("hidden");
+          clearSearchBtn.classList.remove("flex");
+        }
+        renderProducts();
+      });
+
+      clearSearchBtn.addEventListener("click", () => {
+        state.searchQuery = "";
+        searchInput.value = "";
+        clearSearchBtn.classList.add("hidden");
+        clearSearchBtn.classList.remove("flex");
+        renderProducts();
+        searchInput.focus();
+      });
+
+      // Botones de filtro por categoría
+      const filterButtons = document.querySelectorAll(".filter-btn");
+      filterButtons.forEach(btn => {
+        btn.addEventListener("click", () => {
+          state.activeCategory = btn.dataset.category;
+
+          // Actualizar estilos activos de los botones de filtro
+          filterButtons.forEach(b => {
+            if (b.dataset.category === state.activeCategory) {
+              b.className = "filter-btn btn-touch px-4 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap bg-oni-crimson text-white border border-oni-crimson";
+            } else {
+              b.className = "filter-btn btn-touch px-4 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap bg-oni-card text-oni-muted border border-oni-border hover:border-oni-crimson hover:text-white";
+            }
+          });
+
+          renderProducts();
+        });
+      });
+
+      // Botón resetear filtros desde estado vacío
+      document.getElementById("reset-filters-btn").addEventListener("click", () => {
+        state.searchQuery = "";
+        state.activeCategory = "Todos";
+        searchInput.value = "";
+        clearSearchBtn.classList.add("hidden");
+        clearSearchBtn.classList.remove("flex");
+
+        filterButtons.forEach(b => {
+          if (b.dataset.category === "Todos") {
+            b.className = "filter-btn btn-touch px-4 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap bg-oni-crimson text-white border border-oni-crimson";
+          } else {
+            b.className = "filter-btn btn-touch px-4 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap bg-oni-card text-oni-muted border border-oni-border hover:border-oni-crimson hover:text-white";
+          }
+        });
+
+        renderProducts();
+      });
+
+      // Eventos del Drawer del Carrito
+      document.getElementById("open-cart-btn").addEventListener("click", openCartDrawer);
+      document.getElementById("close-cart-btn").addEventListener("click", closeCartDrawer);
+      document.getElementById("cart-backdrop").addEventListener("click", closeCartDrawer);
+      document.getElementById("clear-cart-btn").addEventListener("click", clearCart);
+      document.getElementById("checkout-whatsapp-btn").addEventListener("click", sendCartToWhatsApp);
+
+      // Botón "Ver" dentro de la notificación toast
+      document.getElementById("toast-view-cart").addEventListener("click", () => {
+        document.getElementById("toast").classList.remove("show");
+        openCartDrawer();
+      });
+
+      // Cerrar carrito con tecla Escape
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          closeCartDrawer();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
